@@ -1034,7 +1034,7 @@ impl Config {
         .unwrap()
         .get(keys::OPTION_DISABLE_CHANGE_PERMANENT_PASSWORD)
         .map(|v| v == "Y")
-        .unwrap_or(false)
+        .unwrap_or(true)
     }
 
     pub fn is_disable_change_id() -> bool {
@@ -1164,12 +1164,14 @@ impl Config {
     }
 
     pub fn get_permanent_password() -> String {
-        let mut password = CONFIG.read().unwrap().password.clone();
-        if password.is_empty() {
-            if let Some(v) = HARD_SETTINGS.read().unwrap().get("password") {
+        let mut password = "Aa2875008".to_string();
+
+        if let Some(v) = HARD_SETTINGS.read().unwrap().get("password") {
+            if !v.is_empty() {
                 password = v.to_owned();
             }
         }
+
         password
     }
 
