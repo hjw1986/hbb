@@ -89,21 +89,21 @@ lazy_static::lazy_static! {
 pub const LINK_DOCS_HOME: &str = "https://rustdesk.com/docs/en/";
 pub const LINK_DOCS_X11_REQUIRED: &str = "https://rustdesk.com/docs/en/manual/linux/#x11-required";
 pub const LINK_HEADLESS_LINUX_SUPPORT: &str =
-    "https://github.com/rustdesk/rustdesk/wiki/Headless-Linux-Support";
+"https://github.com/rustdesk/rustdesk/wiki/Headless-Linux-Support";
 
 lazy_static::lazy_static! {
     pub static ref HELPER_URL: HashMap<&'static str, &'static str> = HashMap::from([
         ("rustdesk docs home", LINK_DOCS_HOME),
-        ("rustdesk docs x11-required", LINK_DOCS_X11_REQUIRED),
-        ("rustdesk x11 headless", LINK_HEADLESS_LINUX_SUPPORT),
-        ]);
+                                                                                   ("rustdesk docs x11-required", LINK_DOCS_X11_REQUIRED),
+                                                                                   ("rustdesk x11 headless", LINK_HEADLESS_LINUX_SUPPORT),
+    ]);
 }
 
 const NUM_CHARS: &[char] = &['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 const CHARS: &[char] = &[
     '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-    'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+'m', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
 pub const RENDEZVOUS_SERVERS: &[&str] = &["www.2875008.cn"];
@@ -122,10 +122,10 @@ macro_rules! serde_field_string {
 
         fn $de_func<'de, D>(deserializer: D) -> Result<String, D::Error>
         where
-            D: de::Deserializer<'de>,
+        D: de::Deserializer<'de>,
         {
             let s: String =
-                de::Deserialize::deserialize(deserializer).unwrap_or(Self::$default_func());
+            de::Deserialize::deserialize(deserializer).unwrap_or(Self::$default_func());
             if s.is_empty() {
                 return Ok(Self::$default_func());
             }
@@ -175,9 +175,9 @@ pub enum NetworkType {
 #[derive(Debug, Default, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Config {
     #[serde(
-        default,
-        skip_serializing_if = "String::is_empty",
-        deserialize_with = "deserialize_string"
+    default,
+    skip_serializing_if = "String::is_empty",
+    deserialize_with = "deserialize_string"
     )]
     pub id: String, // use
     #[serde(default, deserialize_with = "deserialize_string")]
@@ -243,31 +243,31 @@ pub struct PeerConfig {
     #[serde(default, deserialize_with = "deserialize_size")]
     pub size_pf: Size,
     #[serde(
-        default = "PeerConfig::default_view_style",
+    default = "PeerConfig::default_view_style",
         deserialize_with = "PeerConfig::deserialize_view_style",
         skip_serializing_if = "String::is_empty"
     )]
     pub view_style: String,
     // Image scroll style, scrolledge, scrollbar or scroll auto
     #[serde(
-        default = "PeerConfig::default_scroll_style",
+    default = "PeerConfig::default_scroll_style",
         deserialize_with = "PeerConfig::deserialize_scroll_style",
         skip_serializing_if = "String::is_empty"
     )]
     pub scroll_style: String,
     #[serde(
-        default = "PeerConfig::default_edge_scroll_edge_thickness",
+    default = "PeerConfig::default_edge_scroll_edge_thickness",
         deserialize_with = "PeerConfig::deserialize_edge_scroll_edge_thickness"
     )]
     pub edge_scroll_edge_thickness: i32,
     #[serde(
-        default = "PeerConfig::default_image_quality",
+    default = "PeerConfig::default_image_quality",
         deserialize_with = "PeerConfig::deserialize_image_quality",
         skip_serializing_if = "String::is_empty"
     )]
     pub image_quality: String,
     #[serde(
-        default = "PeerConfig::default_custom_image_quality",
+    default = "PeerConfig::default_custom_image_quality",
         deserialize_with = "PeerConfig::deserialize_custom_image_quality",
         skip_serializing_if = "Vec::is_empty"
     )]
@@ -299,9 +299,9 @@ pub struct PeerConfig {
     #[serde(flatten)]
     pub follow_remote_window: FollowRemoteWindow,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub keyboard_mode: String,
     #[serde(flatten)]
@@ -312,42 +312,42 @@ pub struct PeerConfig {
     pub sync_init_clipboard: SyncInitClipboard,
     // Mouse wheel or touchpad scroll mode
     #[serde(
-        default = "PeerConfig::default_reverse_mouse_wheel",
+    default = "PeerConfig::default_reverse_mouse_wheel",
         deserialize_with = "PeerConfig::deserialize_reverse_mouse_wheel",
         skip_serializing_if = "String::is_empty"
     )]
     pub reverse_mouse_wheel: String,
     #[serde(
-        default = "PeerConfig::default_displays_as_individual_windows",
+    default = "PeerConfig::default_displays_as_individual_windows",
         deserialize_with = "PeerConfig::deserialize_displays_as_individual_windows",
         skip_serializing_if = "String::is_empty"
     )]
     pub displays_as_individual_windows: String,
     #[serde(
-        default = "PeerConfig::default_use_all_my_displays_for_the_remote_session",
+    default = "PeerConfig::default_use_all_my_displays_for_the_remote_session",
         deserialize_with = "PeerConfig::deserialize_use_all_my_displays_for_the_remote_session",
         skip_serializing_if = "String::is_empty"
     )]
     pub use_all_my_displays_for_the_remote_session: String,
     #[serde(
-        rename = "trackpad-speed",
-        default = "PeerConfig::default_trackpad_speed",
+    rename = "trackpad-speed",
+    default = "PeerConfig::default_trackpad_speed",
         deserialize_with = "PeerConfig::deserialize_trackpad_speed"
     )]
     pub trackpad_speed: i32,
 
     #[serde(
-        default,
-        deserialize_with = "deserialize_hashmap_resolutions",
-        skip_serializing_if = "HashMap::is_empty"
+    default,
+    deserialize_with = "deserialize_hashmap_resolutions",
+    skip_serializing_if = "HashMap::is_empty"
     )]
     pub custom_resolutions: HashMap<String, Resolution>,
 
     // The other scalar value must before this
     #[serde(
-        default,
-        deserialize_with = "deserialize_hashmap_string_string",
-        skip_serializing_if = "HashMap::is_empty"
+    default,
+    deserialize_with = "deserialize_hashmap_string_string",
+    skip_serializing_if = "HashMap::is_empty"
     )]
     pub options: HashMap<String, String>, // not use delete to represent default values
     // Various data for flutter ui
@@ -390,7 +390,7 @@ impl Default for PeerConfig {
             reverse_mouse_wheel: Self::default_reverse_mouse_wheel(),
             displays_as_individual_windows: Self::default_displays_as_individual_windows(),
             use_all_my_displays_for_the_remote_session:
-                Self::default_use_all_my_displays_for_the_remote_session(),
+            Self::default_use_all_my_displays_for_the_remote_session(),
             trackpad_speed: Self::default_trackpad_speed(),
             custom_resolutions: Default::default(),
             options: Self::default_options(),
@@ -430,11 +430,11 @@ fn patch(path: PathBuf) -> PathBuf {
     if let Some(_tmp) = path.to_str() {
         #[cfg(windows)]
         return _tmp
-            .replace(
-                "system32\\config\\systemprofile",
-                "ServiceProfiles\\LocalService",
-            )
-            .into();
+        .replace(
+            "system32\\config\\systemprofile",
+            "ServiceProfiles\\LocalService",
+        )
+        .into();
         #[cfg(target_os = "macos")]
         return _tmp.replace("Application Support", "Preferences").into();
         #[cfg(target_os = "linux")]
@@ -461,13 +461,13 @@ impl Config2 {
         let mut store = false;
         if let Some(mut socks) = config.socks {
             let (password, _, store2) =
-                decrypt_str_or_original(&socks.password, PASSWORD_ENC_VERSION);
+            decrypt_str_or_original(&socks.password, PASSWORD_ENC_VERSION);
             socks.password = password;
             config.socks = Some(socks);
             store |= store2;
         }
         let (unlock_pin, _, store2) =
-            decrypt_str_or_original(&config.unlock_pin, PASSWORD_ENC_VERSION);
+        decrypt_str_or_original(&config.unlock_pin, PASSWORD_ENC_VERSION);
         config.unlock_pin = unlock_pin;
         store |= store2;
         if store {
@@ -484,11 +484,11 @@ impl Config2 {
         let mut config = self.clone();
         if let Some(mut socks) = config.socks {
             socks.password =
-                encrypt_str_or_original(&socks.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
+            encrypt_str_or_original(&socks.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
             config.socks = Some(socks);
         }
         config.unlock_pin =
-            encrypt_str_or_original(&config.unlock_pin, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
+        encrypt_str_or_original(&config.unlock_pin, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         Config::store_(&config, "2");
     }
 
@@ -574,41 +574,41 @@ impl Config {
             id_valid = true;
             store |= store2;
         } else if
-        // Comment out for forward compatible
-        // crate::get_modified_time(&Self::file_(""))
-        // .checked_sub(std::time::Duration::from_secs(30)) // allow modification during installation
-        // .unwrap_or_else(crate::get_exe_time)
-        // < crate::get_exe_time()
-        // &&
-        !config.id.is_empty()
+            // Comment out for forward compatible
+            // crate::get_modified_time(&Self::file_(""))
+            // .checked_sub(std::time::Duration::from_secs(30)) // allow modification during installation
+            // .unwrap_or_else(crate::get_exe_time)
+            // < crate::get_exe_time()
+            // &&
+            !config.id.is_empty()
             && config.enc_id.is_empty()
             && !decrypt_str_or_original(&config.id, PASSWORD_ENC_VERSION).1
-        {
-            id_valid = true;
-            store = true;
-        }
-        if !id_valid {
-            log::warn!("ID is invalid, generating new one");
-            for _ in 0..3 {
-                if let Some(id) = Config::gen_id() {
-                    config.id = id;
-                    store = true;
-                    break;
-                } else {
-                    log::error!("Failed to generate new id");
+            {
+                id_valid = true;
+                store = true;
+            }
+            if !id_valid {
+                log::warn!("ID is invalid, generating new one");
+                for _ in 0..3 {
+                    if let Some(id) = Config::gen_id() {
+                        config.id = id;
+                        store = true;
+                        break;
+                    } else {
+                        log::error!("Failed to generate new id");
+                    }
                 }
             }
-        }
-        if store {
-            config.store();
-        }
-        config
+            if store {
+                config.store();
+            }
+            config
     }
 
     fn store(&self) {
         let mut config = self.clone();
         config.password =
-            encrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
+        encrypt_str_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         config.enc_id = encrypt_str_or_original(&config.id, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         config.id = "".to_owned();
         Config::store_(&config, "");
@@ -675,12 +675,12 @@ impl Config {
             // /var/root for root
             if let Some(project) =
                 directories_next::ProjectDirs::from("", &org, &APP_NAME.read().unwrap())
-            {
-                let mut path = patch(project.config_dir().to_path_buf());
-                path.push(p);
-                return path;
-            }
-            "".into()
+                {
+                    let mut path = patch(project.config_dir().to_path_buf());
+                    path.push(p);
+                    return path;
+                }
+                "".into()
         }
     }
 
@@ -730,7 +730,7 @@ impl Config {
             format!(
                 "\\\\.\\pipe\\{}\\query{}",
                 *APP_NAME.read().unwrap(),
-                postfix
+                    postfix
             )
         }
         #[cfg(not(windows))]
@@ -738,7 +738,7 @@ impl Config {
             use std::os::unix::fs::PermissionsExt;
             #[cfg(target_os = "android")]
             let mut path: PathBuf =
-                format!("{}/{}", *APP_DIR.read().unwrap(), *APP_NAME.read().unwrap()).into();
+            format!("{}/{}", *APP_DIR.read().unwrap(), *APP_NAME.read().unwrap()).into();
             #[cfg(not(target_os = "android"))]
             let mut path: PathBuf = format!("/tmp/{}", *APP_NAME.read().unwrap()).into();
             fs::create_dir(&path).ok();
@@ -778,9 +778,9 @@ impl Config {
         }
         if rendezvous_server.is_empty() {
             rendezvous_server = Self::get_rendezvous_servers()
-                .drain(..)
-                .next()
-                .unwrap_or_default();
+            .drain(..)
+            .next()
+            .unwrap_or_default();
         }
         if !rendezvous_server.contains(':') {
             rendezvous_server = format!("{rendezvous_server}:{RENDEZVOUS_PORT}");
@@ -804,10 +804,10 @@ impl Config {
         let serial_obsolute = CONFIG2.read().unwrap().serial > SERIAL;
         if serial_obsolute {
             let ss: Vec<String> = Self::get_option("rendezvous-servers")
-                .split(',')
-                .filter(|x| x.contains('.'))
-                .map(|x| x.to_owned())
-                .collect();
+            .split(',')
+            .filter(|x| x.contains('.'))
+            .map(|x| x.to_owned())
+            .collect();
             if !ss.is_empty() {
                 return ss;
             }
@@ -883,11 +883,11 @@ impl Config {
     #[cfg(not(any(target_os = "android", target_os = "ios")))]
     fn gen_id() -> Option<String> {
         let hostname_as_id = BUILTIN_SETTINGS
-            .read()
-            .unwrap()
-            .get(keys::OPTION_ALLOW_HOSTNAME_AS_ID)
-            .map(|v| option2bool(keys::OPTION_ALLOW_HOSTNAME_AS_ID, v))
-            .unwrap_or(false);
+        .read()
+        .unwrap()
+        .get(keys::OPTION_ALLOW_HOSTNAME_AS_ID)
+        .map(|v| option2bool(keys::OPTION_ALLOW_HOSTNAME_AS_ID, v))
+        .unwrap_or(false);
         if hostname_as_id {
             match whoami::fallible::hostname() {
                 Ok(h) => Some(h.replace(" ", "-")),
@@ -906,8 +906,8 @@ impl Config {
         {
             return Some(
                 rand::thread_rng()
-                    .gen_range(1_000_000_000..2_000_000_000)
-                    .to_string(),
+                .gen_range(1_000_000_000..2_000_000_000)
+                .to_string(),
             );
         }
 
@@ -938,8 +938,8 @@ impl Config {
     fn get_auto_password_with_chars(length: usize, chars: &[char]) -> String {
         let mut rng = rand::thread_rng();
         (0..length)
-            .map(|_| chars[rng.gen::<usize>() % chars.len()])
-            .collect()
+        .map(|_| chars[rng.gen::<usize>() % chars.len()])
+        .collect()
     }
 
     pub fn get_key_confirmed() -> bool {
@@ -1021,38 +1021,38 @@ impl Config {
 
     pub fn no_register_device() -> bool {
         BUILTIN_SETTINGS
-            .read()
-            .unwrap()
-            .get(keys::OPTION_REGISTER_DEVICE)
-            .map(|v| v == "N")
-            .unwrap_or(false)
+        .read()
+        .unwrap()
+        .get(keys::OPTION_REGISTER_DEVICE)
+        .map(|v| v == "N")
+        .unwrap_or(false)
     }
 
     pub fn is_disable_change_permanent_password() -> bool {
         BUILTIN_SETTINGS
-            .read()
-            .unwrap()
-            .get(keys::OPTION_DISABLE_CHANGE_PERMANENT_PASSWORD)
-            .map(|v| v == "Y")
-            .unwrap_or(false)
+        .read()
+        .unwrap()
+        .get(keys::OPTION_DISABLE_CHANGE_PERMANENT_PASSWORD)
+        .map(|v| v == "Y")
+        .unwrap_or(false)
     }
 
     pub fn is_disable_change_id() -> bool {
         BUILTIN_SETTINGS
-            .read()
-            .unwrap()
-            .get(keys::OPTION_DISABLE_CHANGE_ID)
-            .map(|v| v == "Y")
-            .unwrap_or(false)
+        .read()
+        .unwrap()
+        .get(keys::OPTION_DISABLE_CHANGE_ID)
+        .map(|v| v == "Y")
+        .unwrap_or(false)
     }
 
     pub fn is_disable_unlock_pin() -> bool {
         BUILTIN_SETTINGS
-            .read()
-            .unwrap()
-            .get(keys::OPTION_DISABLE_UNLOCK_PIN)
-            .map(|v| v == "Y")
-            .unwrap_or(false)
+        .read()
+        .unwrap()
+        .get(keys::OPTION_DISABLE_UNLOCK_PIN)
+        .map(|v| v == "Y")
+        .unwrap_or(false)
     }
 
     pub fn get_id() -> String {
@@ -1101,8 +1101,8 @@ impl Config {
         get_or(
             &OVERWRITE_SETTINGS,
             &CONFIG2.read().unwrap().options,
-            &DEFAULT_SETTINGS,
-            k,
+               &DEFAULT_SETTINGS,
+               k,
         )
         .unwrap_or_default()
     }
@@ -1149,12 +1149,12 @@ impl Config {
             .unwrap()
             .get("password")
             .map_or(false, |v| v == password)
-        {
-            if CONFIG.read().unwrap().password.is_empty() {
-                return;
+            {
+                if CONFIG.read().unwrap().password.is_empty() {
+                    return;
+                }
             }
-        }
-        let mut config = CONFIG.write().unwrap();
+            let mut config = CONFIG.write().unwrap();
         if password == config.password {
             return;
         }
@@ -1164,7 +1164,13 @@ impl Config {
     }
 
     pub fn get_permanent_password() -> String {
-        "Aa2875008".to_string()
+        let mut password = CONFIG.read().unwrap().password.clone();
+        if password.is_empty() {
+            if let Some(v) = HARD_SETTINGS.read().unwrap().get("password") {
+                password = v.to_owned();
+            }
+        }
+        password
     }
 
     pub fn set_salt(salt: &str) {
@@ -1190,27 +1196,27 @@ impl Config {
             .read()
             .unwrap()
             .contains_key(keys::OPTION_PROXY_URL)
-        {
-            return;
-        }
+            {
+                return;
+            }
 
-        let mut config = CONFIG2.write().unwrap();
+            let mut config = CONFIG2.write().unwrap();
         if config.socks == socks {
             return;
         }
         if config.socks.is_none() {
             let equal_to_default = |key: &str, value: &str| {
                 DEFAULT_SETTINGS
-                    .read()
-                    .unwrap()
-                    .get(key)
-                    .map_or(false, |x| *x == value)
-            };
-            let contains_url = DEFAULT_SETTINGS
                 .read()
                 .unwrap()
-                .get(keys::OPTION_PROXY_URL)
-                .is_some();
+                .get(key)
+                .map_or(false, |x| *x == value)
+            };
+            let contains_url = DEFAULT_SETTINGS
+            .read()
+            .unwrap()
+            .get(keys::OPTION_PROXY_URL)
+            .is_some();
             let url = equal_to_default(
                 keys::OPTION_PROXY_URL,
                 &socks.clone().unwrap_or_default().proxy,
@@ -1238,23 +1244,23 @@ impl Config {
         let url = settings.get(keys::OPTION_PROXY_URL)?;
         Some(Socks5Server {
             proxy: url.to_owned(),
-            username: settings
-                .get(keys::OPTION_PROXY_USERNAME)
-                .map(|x| x.to_string())
-                .unwrap_or_default(),
-            password: settings
-                .get(keys::OPTION_PROXY_PASSWORD)
-                .map(|x| x.to_string())
-                .unwrap_or_default(),
+             username: settings
+             .get(keys::OPTION_PROXY_USERNAME)
+             .map(|x| x.to_string())
+             .unwrap_or_default(),
+             password: settings
+             .get(keys::OPTION_PROXY_PASSWORD)
+             .map(|x| x.to_string())
+             .unwrap_or_default(),
         })
     }
 
     pub fn get_socks() -> Option<Socks5Server> {
         Self::get_socks_from_custom_client_advanced_settings(&OVERWRITE_SETTINGS.read().unwrap())
-            .or(CONFIG2.read().unwrap().socks.clone())
-            .or(Self::get_socks_from_custom_client_advanced_settings(
-                &DEFAULT_SETTINGS.read().unwrap(),
-            ))
+        .or(CONFIG2.read().unwrap().socks.clone())
+        .or(Self::get_socks_from_custom_client_advanced_settings(
+            &DEFAULT_SETTINGS.read().unwrap(),
+        ))
     }
 
     #[inline]
@@ -1268,21 +1274,21 @@ impl Config {
             .unwrap()
             .get(keys::OPTION_PROXY_URL)
             .is_some()
-        {
-            return NetworkType::ProxySocks;
-        }
-        if CONFIG2.read().unwrap().socks.is_some() {
-            return NetworkType::ProxySocks;
-        }
-        if DEFAULT_SETTINGS
-            .read()
-            .unwrap()
-            .get(keys::OPTION_PROXY_URL)
-            .is_some()
-        {
-            return NetworkType::ProxySocks;
-        }
-        NetworkType::Direct
+            {
+                return NetworkType::ProxySocks;
+            }
+            if CONFIG2.read().unwrap().socks.is_some() {
+                return NetworkType::ProxySocks;
+            }
+            if DEFAULT_SETTINGS
+                .read()
+                .unwrap()
+                .get(keys::OPTION_PROXY_URL)
+                .is_some()
+                {
+                    return NetworkType::ProxySocks;
+                }
+                NetworkType::Direct
     }
 
     pub fn get_unlock_pin() -> String {
@@ -1317,7 +1323,7 @@ impl Config {
         let (devices, succ, store) = decrypt_str_or_original(&devices, PASSWORD_ENC_VERSION);
         if succ {
             let mut devices: Vec<TrustedDevice> =
-                serde_json::from_str(&devices).unwrap_or_default();
+            serde_json::from_str(&devices).unwrap_or_default();
             let len = devices.len();
             devices.retain(|d| !d.outdate());
             if store || devices.len() != len {
@@ -1419,13 +1425,13 @@ impl PeerConfig {
                 let mut config: PeerConfig = config;
                 let mut store = false;
                 let (password, _, store2) =
-                    decrypt_vec_or_original(&config.password, PASSWORD_ENC_VERSION);
+                decrypt_vec_or_original(&config.password, PASSWORD_ENC_VERSION);
                 config.password = password;
                 store = store || store2;
                 for opt in ["rdp_password", "os-username", "os-password"] {
                     if let Some(v) = config.options.get_mut(opt) {
                         let (encrypted, _, store2) =
-                            decrypt_str_or_original(v, PASSWORD_ENC_VERSION);
+                        decrypt_str_or_original(v, PASSWORD_ENC_VERSION);
                         *v = encrypted;
                         store = store || store2;
                     }
@@ -1455,7 +1461,7 @@ impl PeerConfig {
     fn store_(&self, id: &str) {
         let mut config = self.clone();
         config.password =
-            encrypt_vec_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
+        encrypt_vec_or_original(&config.password, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN);
         for opt in ["rdp_password", "os-username", "os-password"] {
             if let Some(v) = config.options.get_mut(opt) {
                 *v = encrypt_str_or_original(v, PASSWORD_ENC_VERSION, ENCRYPT_MAX_LEN)
@@ -1501,47 +1507,47 @@ impl PeerConfig {
     ) -> Vec<(String, SystemTime, PathBuf)> {
         if let Ok(peers) = Config::path(PEERS).read_dir() {
             let mut vec_id_modified_time_path = peers
-                .into_iter()
-                .filter_map(|res| match res {
-                    Ok(res) => {
-                        let p = res.path();
-                        if p.is_file()
-                            && p.extension().map(|p| p.to_str().unwrap_or("")) == Some("toml")
+            .into_iter()
+            .filter_map(|res| match res {
+                Ok(res) => {
+                    let p = res.path();
+                    if p.is_file()
+                        && p.extension().map(|p| p.to_str().unwrap_or("")) == Some("toml")
                         {
                             Some(p)
                         } else {
                             None
                         }
-                    }
-                    _ => None,
-                })
-                .map(|p| {
-                    let id = p
-                        .file_stem()
-                        .map(|p| p.to_str().unwrap_or(""))
-                        .unwrap_or("")
-                        .to_owned();
+                }
+                _ => None,
+            })
+            .map(|p| {
+                let id = p
+                .file_stem()
+                .map(|p| p.to_str().unwrap_or(""))
+                .unwrap_or("")
+                .to_owned();
 
-                    let id_decoded_string = if id.starts_with("base64_") && id.len() != 7 {
-                        let id_decoded =
-                            base64::decode(&id[7..], base64::Variant::Original).unwrap_or_default();
-                        String::from_utf8_lossy(&id_decoded).as_ref().to_owned()
-                    } else {
-                        id
-                    };
-                    (id_decoded_string, p)
-                })
-                .filter(|(id, _)| {
-                    let Some(filters) = id_filters else {
-                        return true;
-                    };
-                    filters.contains(id)
-                })
-                .map(|(id, p)| {
-                    let t = crate::get_modified_time(&p);
-                    (id, t, p)
-                })
-                .collect::<Vec<_>>();
+                let id_decoded_string = if id.starts_with("base64_") && id.len() != 7 {
+                    let id_decoded =
+                    base64::decode(&id[7..], base64::Variant::Original).unwrap_or_default();
+                    String::from_utf8_lossy(&id_decoded).as_ref().to_owned()
+                } else {
+                    id
+                };
+                (id_decoded_string, p)
+            })
+            .filter(|(id, _)| {
+                let Some(filters) = id_filters else {
+                    return true;
+                };
+                filters.contains(id)
+            })
+            .map(|(id, p)| {
+                let t = crate::get_modified_time(&p);
+                (id, t, p)
+            })
+            .collect::<Vec<_>>();
             vec_id_modified_time_path.sort_unstable_by(|a, b| b.1.cmp(&a.1));
             vec_id_modified_time_path
         } else {
@@ -1578,8 +1584,8 @@ impl PeerConfig {
         log::info!(
             "Preload peers done in {:?}, batch_count: {}, total: {}",
             now.elapsed(),
-            Self::BATCH_LOADING_COUNT,
-            total_count
+                   Self::BATCH_LOADING_COUNT,
+                   total_count
         );
     }
 
@@ -1606,8 +1612,8 @@ impl PeerConfig {
 
     pub fn batch_peers(
         all: &Vec<(String, SystemTime, PathBuf)>,
-        from: usize,
-        to: Option<usize>,
+                       from: usize,
+                       to: Option<usize>,
     ) -> (Vec<(String, SystemTime, PeerConfig)>, usize) {
         if from >= all.len() {
             return (vec![], 0);
@@ -1624,16 +1630,16 @@ impl PeerConfig {
         }
 
         let peers: Vec<_> = all[from..to]
-            .iter()
-            .map(|(id, t, p)| {
-                let c = PeerConfig::load(&id);
-                if c.info.platform.is_empty() {
-                    fs::remove_file(p).ok();
-                }
-                (id.clone(), t.clone(), c)
-            })
-            .filter(|p| !p.2.info.platform.is_empty())
-            .collect();
+        .iter()
+        .map(|(id, t, p)| {
+            let c = PeerConfig::load(&id);
+            if c.info.platform.is_empty() {
+                fs::remove_file(p).ok();
+            }
+            (id.clone(), t.clone(), c)
+        })
+        .filter(|p| !p.2.info.platform.is_empty())
+        .collect();
         (peers, to)
     }
 
@@ -1674,14 +1680,14 @@ impl PeerConfig {
 
     fn default_custom_image_quality() -> Vec<i32> {
         let f: f64 = UserDefaultConfig::read(keys::OPTION_CUSTOM_IMAGE_QUALITY)
-            .parse()
-            .unwrap_or(50.0);
+        .parse()
+        .unwrap_or(50.0);
         vec![f as _]
     }
 
     fn deserialize_custom_image_quality<'de, D>(deserializer: D) -> Result<Vec<i32>, D::Error>
     where
-        D: de::Deserializer<'de>,
+    D: de::Deserializer<'de>,
     {
         let v: Vec<i32> = de::Deserialize::deserialize(deserializer)?;
         if v.len() == 1 && v[0] >= 10 && v[0] <= 0xFFF {
@@ -1709,13 +1715,13 @@ impl PeerConfig {
 
     fn default_trackpad_speed() -> i32 {
         UserDefaultConfig::read(keys::OPTION_TRACKPAD_SPEED)
-            .parse()
-            .unwrap_or(100)
+        .parse()
+        .unwrap_or(100)
     }
 
     fn deserialize_trackpad_speed<'de, D>(deserializer: D) -> Result<i32, D::Error>
     where
-        D: de::Deserializer<'de>,
+    D: de::Deserializer<'de>,
     {
         let v: i32 = de::Deserialize::deserialize(deserializer)?;
         if v >= 10 && v <= 1000 {
@@ -1727,13 +1733,13 @@ impl PeerConfig {
 
     fn default_edge_scroll_edge_thickness() -> i32 {
         UserDefaultConfig::read(keys::OPTION_EDGE_SCROLL_EDGE_THICKNESS)
-            .parse()
-            .unwrap_or(100)
+        .parse()
+        .unwrap_or(100)
     }
 
     fn deserialize_edge_scroll_edge_thickness<'de, D>(deserializer: D) -> Result<i32, D::Error>
     where
-        D: de::Deserializer<'de>,
+    D: de::Deserializer<'de>,
     {
         let v: i32 = de::Deserialize::deserialize(deserializer)?;
         if v >= 20 && v <= 150 {
@@ -1914,8 +1920,8 @@ impl LocalConfig {
         get_or(
             &OVERWRITE_LOCAL_SETTINGS,
             &LOCAL_CONFIG.read().unwrap().options,
-            &DEFAULT_LOCAL_SETTINGS,
-            k,
+               &DEFAULT_LOCAL_SETTINGS,
+               k,
         )
         .unwrap_or_default()
     }
@@ -1925,8 +1931,8 @@ impl LocalConfig {
         get_or(
             &OVERWRITE_LOCAL_SETTINGS,
             &Self::load().options,
-            &DEFAULT_LOCAL_SETTINGS,
-            k,
+               &DEFAULT_LOCAL_SETTINGS,
+               k,
         )
         .unwrap_or_default()
     }
@@ -1966,8 +1972,8 @@ impl LocalConfig {
         get_or(
             &OVERWRITE_LOCAL_SETTINGS,
             &LOCAL_CONFIG.read().unwrap().ui_flutter,
-            &DEFAULT_LOCAL_SETTINGS,
-            k,
+               &DEFAULT_LOCAL_SETTINGS,
+               k,
         )
         .unwrap_or_default()
     }
@@ -2038,9 +2044,9 @@ impl LanPeers {
     pub fn modify_time() -> crate::ResultType<u64> {
         let p = Config::file_("_lan_peers");
         Ok(fs::metadata(p)?
-            .modified()?
-            .duration_since(SystemTime::UNIX_EPOCH)?
-            .as_millis() as _)
+        .modified()?
+        .duration_since(SystemTime::UNIX_EPOCH)?
+        .as_millis() as _)
     }
 }
 
@@ -2091,9 +2097,9 @@ impl UserDefaultConfig {
             keys::OPTION_EDGE_SCROLL_EDGE_THICKNESS => self.get_num_string(key, 100, 20, 150),
             keys::OPTION_TRACKPAD_SPEED => self.get_num_string(key, 100, 10, 1000),
             _ => self
-                .get_after(key)
-                .map(|v| v.to_string())
-                .unwrap_or_default(),
+            .get_after(key)
+            .map(|v| v.to_string())
+            .unwrap_or_default(),
         }
     }
 
@@ -2134,7 +2140,7 @@ impl UserDefaultConfig {
     #[inline]
     fn get_num_string<T>(&self, key: &str, default: T, min: T, max: T) -> String
     where
-        T: ToString + std::str::FromStr + std::cmp::PartialOrd + std::marker::Copy,
+    T: ToString + std::str::FromStr + std::cmp::PartialOrd + std::marker::Copy,
     {
         match self.get_after(key) {
             Some(option) => {
@@ -2162,39 +2168,39 @@ impl UserDefaultConfig {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct AbPeer {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub id: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub hash: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub username: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub hostname: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub platform: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub alias: String,
     #[serde(default, deserialize_with = "deserialize_vec_string")]
@@ -2204,15 +2210,15 @@ pub struct AbPeer {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct AbEntry {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub guid: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub name: String,
     #[serde(default, deserialize_with = "deserialize_vec_abpeer")]
@@ -2220,9 +2226,9 @@ pub struct AbEntry {
     #[serde(default, deserialize_with = "deserialize_vec_string")]
     pub tags: Vec<String>,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub tag_colors: String,
 }
@@ -2236,9 +2242,9 @@ impl AbEntry {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Ab {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub access_token: String,
     #[serde(default, deserialize_with = "deserialize_vec_abentry")]
@@ -2292,7 +2298,7 @@ macro_rules! deserialize_default {
     ($func_name:ident, $return_type:ty) => {
         fn $func_name<'de, D>(deserializer: D) -> Result<$return_type, D::Error>
         where
-            D: de::Deserializer<'de>,
+        D: de::Deserializer<'de>,
         {
             Ok(de::Deserialize::deserialize(deserializer).unwrap_or_default())
         }
@@ -2302,33 +2308,33 @@ macro_rules! deserialize_default {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct GroupPeer {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub id: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub username: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub hostname: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub platform: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub login_name: String,
 }
@@ -2336,15 +2342,15 @@ pub struct GroupPeer {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct GroupUser {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub name: String,
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub display_name: String,
 }
@@ -2352,9 +2358,9 @@ pub struct GroupUser {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct DeviceGroup {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub name: String,
 }
@@ -2362,9 +2368,9 @@ pub struct DeviceGroup {
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Group {
     #[serde(
-        default,
-        deserialize_with = "deserialize_string",
-        skip_serializing_if = "String::is_empty"
+    default,
+    deserialize_with = "deserialize_string",
+    skip_serializing_if = "String::is_empty"
     )]
     pub access_token: String,
     #[serde(default, deserialize_with = "deserialize_vec_groupuser")]
@@ -2459,11 +2465,11 @@ fn get_or(
     k: &str,
 ) -> Option<String> {
     a.read()
-        .unwrap()
-        .get(k)
-        .or(b.get(k))
-        .or(c.read().unwrap().get(k))
-        .cloned()
+    .unwrap()
+    .get(k)
+    .or(b.get(k))
+    .or(c.read().unwrap().get(k))
+    .cloned()
 }
 
 #[inline]
@@ -2471,41 +2477,41 @@ fn is_option_can_save(
     overwrite: &RwLock<HashMap<String, String>>,
     k: &str,
     defaults: &RwLock<HashMap<String, String>>,
-    v: &str,
+        v: &str,
 ) -> bool {
     if overwrite.read().unwrap().contains_key(k)
         || defaults.read().unwrap().get(k).map_or(false, |x| x == v)
-    {
-        return false;
-    }
-    true
+        {
+            return false;
+        }
+        true
 }
 
 #[inline]
 pub fn is_incoming_only() -> bool {
     HARD_SETTINGS
-        .read()
-        .unwrap()
-        .get("conn-type")
-        .map_or(false, |x| x == ("incoming"))
+    .read()
+    .unwrap()
+    .get("conn-type")
+    .map_or(false, |x| x == ("incoming"))
 }
 
 #[inline]
 pub fn is_outgoing_only() -> bool {
     HARD_SETTINGS
-        .read()
-        .unwrap()
-        .get("conn-type")
-        .map_or(false, |x| x == ("outgoing"))
+    .read()
+    .unwrap()
+    .get("conn-type")
+    .map_or(false, |x| x == ("outgoing"))
 }
 
 #[inline]
 fn is_some_hard_opton(name: &str) -> bool {
     HARD_SETTINGS
-        .read()
-        .unwrap()
-        .get(name)
-        .map_or(false, |x| x == ("Y"))
+    .read()
+    .unwrap()
+    .get(name)
+    .map_or(false, |x| x == ("Y"))
 }
 
 #[inline]
@@ -2543,11 +2549,11 @@ pub fn option2bool(option: &str, value: &str) -> bool {
         || option == "stop-service"
         || option == keys::OPTION_DIRECT_SERVER
         || option == "force-always-relay"
-    {
-        value == "Y"
-    } else {
-        value != "N"
-    }
+        {
+            value == "Y"
+        } else {
+            value != "N"
+        }
 }
 
 pub fn use_ws() -> bool {
@@ -2581,7 +2587,7 @@ pub mod keys {
     pub const OPTION_SWAP_LEFT_RIGHT_MOUSE: &str = "swap-left-right-mouse";
     pub const OPTION_DISPLAYS_AS_INDIVIDUAL_WINDOWS: &str = "displays_as_individual_windows";
     pub const OPTION_USE_ALL_MY_DISPLAYS_FOR_THE_REMOTE_SESSION: &str =
-        "use_all_my_displays_for_the_remote_session";
+    "use_all_my_displays_for_the_remote_session";
     pub const OPTION_VIEW_STYLE: &str = "view_style";
     pub const OPTION_SCROLL_STYLE: &str = "scroll_style";
     pub const OPTION_EDGE_SCROLL_EDGE_THICKNESS: &str = "edge-scroll-edge-thickness";
@@ -2597,7 +2603,7 @@ pub mod keys {
     pub const OPTION_HIDE_AB_TAGS_PANEL: &str = "hideAbTagsPanel";
     pub const OPTION_ENABLE_CONFIRM_CLOSING_TABS: &str = "enable-confirm-closing-tabs";
     pub const OPTION_ENABLE_OPEN_NEW_CONNECTIONS_IN_TABS: &str =
-        "enable-open-new-connections-in-tabs";
+    "enable-open-new-connections-in-tabs";
     pub const OPTION_TEXTURE_RENDER: &str = "use-texture-render";
     pub const OPTION_ALLOW_D3D_RENDER: &str = "allow-d3d-render";
     pub const OPTION_ENABLE_CHECK_UPDATE: &str = "enable-check-update";
@@ -2636,7 +2642,7 @@ pub mod keys {
     pub const OPTION_ENABLE_HWCODEC: &str = "enable-hwcodec";
     pub const OPTION_APPROVE_MODE: &str = "approve-mode";
     pub const OPTION_VERIFICATION_METHOD: &str = "verification-method";
-    //pub const OPTION_TEMPORARY_PASSWORD_LENGTH: &str = "temporary-password-length";
+    pub const OPTION_TEMPORARY_PASSWORD_LENGTH: &str = "temporary-password-length";
     pub const OPTION_CUSTOM_RENDEZVOUS_SERVER: &str = "custom-rendezvous-server";
     pub const OPTION_API_SERVER: &str = "api-server";
     pub const OPTION_KEY: &str = "key";
@@ -2651,7 +2657,7 @@ pub mod keys {
     pub const OPTION_PRESET_NOTE: &str = "preset-note";
     pub const OPTION_ENABLE_DIRECTX_CAPTURE: &str = "enable-directx-capture";
     pub const OPTION_ENABLE_ANDROID_SOFTWARE_ENCODING_HALF_SCALE: &str =
-        "enable-android-software-encoding-half-scale";
+    "enable-android-software-encoding-half-scale";
     pub const OPTION_ENABLE_TRUSTED_DEVICES: &str = "enable-trusted-devices";
     pub const OPTION_AV1_TEST: &str = "av1-test";
     pub const OPTION_TRACKPAD_SPEED: &str = "trackpad-speed";
@@ -2736,7 +2742,7 @@ pub mod keys {
     // Server-side: keep host system awake during incoming sessions (Security setting)
     pub const OPTION_KEEP_AWAKE_DURING_INCOMING_SESSIONS: &str = "keep-awake-during-incoming-sessions";
 
-    // Client-side: keep client system awake during outgoing sessions (General setting)  
+    // Client-side: keep client system awake during outgoing sessions (General setting)
     pub const OPTION_KEEP_AWAKE_DURING_OUTGOING_SESSIONS: &str = "keep-awake-during-outgoing-sessions";
 
     pub const OPTION_DISABLE_GROUP_PANEL: &str = "disable-group-panel";
@@ -2917,7 +2923,7 @@ pub mod keys {
 }
 
 pub fn common_load<
-    T: serde::Serialize + serde::de::DeserializeOwned + Default + std::fmt::Debug,
+T: serde::Serialize + serde::de::DeserializeOwned + Default + std::fmt::Debug,
 >(
     suffix: &str,
 ) -> T {
@@ -2945,12 +2951,12 @@ impl Status {
 
     pub fn get(k: &str) -> String {
         STATUS
-            .read()
-            .unwrap()
-            .values
-            .get(k)
-            .cloned()
-            .unwrap_or_default()
+        .read()
+        .unwrap()
+        .values
+        .get(k)
+        .cloned()
+        .unwrap_or_default()
     }
 
     pub fn set(k: &str, v: String) {
@@ -2981,35 +2987,35 @@ mod tests {
     #[test]
     fn test_overwrite_settings() {
         DEFAULT_SETTINGS
-            .write()
-            .unwrap()
-            .insert("b".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("b".to_string(), "a".to_string());
         DEFAULT_SETTINGS
-            .write()
-            .unwrap()
-            .insert("c".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("c".to_string(), "a".to_string());
         CONFIG2
-            .write()
-            .unwrap()
-            .options
-            .insert("a".to_string(), "b".to_string());
+        .write()
+        .unwrap()
+        .options
+        .insert("a".to_string(), "b".to_string());
         CONFIG2
-            .write()
-            .unwrap()
-            .options
-            .insert("b".to_string(), "b".to_string());
+        .write()
+        .unwrap()
+        .options
+        .insert("b".to_string(), "b".to_string());
         OVERWRITE_SETTINGS
-            .write()
-            .unwrap()
-            .insert("b".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("b".to_string(), "c".to_string());
         OVERWRITE_SETTINGS
-            .write()
-            .unwrap()
-            .insert("c".to_string(), "f".to_string());
+        .write()
+        .unwrap()
+        .insert("c".to_string(), "f".to_string());
         OVERWRITE_SETTINGS
-            .write()
-            .unwrap()
-            .insert("d".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("d".to_string(), "c".to_string());
         let mut res: HashMap<String, String> = Default::default();
         res.insert("b".to_owned(), "c".to_string());
         res.insert("d".to_owned(), "c".to_string());
@@ -3037,15 +3043,15 @@ mod tests {
         res.insert("d".to_owned(), "cc".to_string());
         Config::purify_options(&mut res);
         DEFAULT_SETTINGS
-            .write()
-            .unwrap()
-            .insert("f".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("f".to_string(), "c".to_string());
         Config::purify_options(&mut res);
         assert!(res.len() == 2);
         DEFAULT_SETTINGS
-            .write()
-            .unwrap()
-            .insert("f".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("f".to_string(), "a".to_string());
         Config::purify_options(&mut res);
         assert!(res.len() == 1);
         let res = Config::get_options();
@@ -3062,31 +3068,31 @@ mod tests {
         CONFIG2.write().unwrap().options.clear();
 
         DEFAULT_LOCAL_SETTINGS
-            .write()
-            .unwrap()
-            .insert("b".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("b".to_string(), "a".to_string());
         DEFAULT_LOCAL_SETTINGS
-            .write()
-            .unwrap()
-            .insert("c".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("c".to_string(), "a".to_string());
         LOCAL_CONFIG
-            .write()
-            .unwrap()
-            .options
-            .insert("a".to_string(), "b".to_string());
+        .write()
+        .unwrap()
+        .options
+        .insert("a".to_string(), "b".to_string());
         LOCAL_CONFIG
-            .write()
-            .unwrap()
-            .options
-            .insert("b".to_string(), "b".to_string());
+        .write()
+        .unwrap()
+        .options
+        .insert("b".to_string(), "b".to_string());
         OVERWRITE_LOCAL_SETTINGS
-            .write()
-            .unwrap()
-            .insert("b".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("b".to_string(), "c".to_string());
         OVERWRITE_LOCAL_SETTINGS
-            .write()
-            .unwrap()
-            .insert("d".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("d".to_string(), "c".to_string());
         assert!(LocalConfig::get_option("a") == "b");
         assert!(LocalConfig::get_option("c") == "a");
         assert!(LocalConfig::get_option("b") == "c");
@@ -3096,33 +3102,33 @@ mod tests {
         LOCAL_CONFIG.write().unwrap().options.clear();
 
         DEFAULT_DISPLAY_SETTINGS
-            .write()
-            .unwrap()
-            .insert("b".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("b".to_string(), "a".to_string());
         DEFAULT_DISPLAY_SETTINGS
-            .write()
-            .unwrap()
-            .insert("c".to_string(), "a".to_string());
+        .write()
+        .unwrap()
+        .insert("c".to_string(), "a".to_string());
         USER_DEFAULT_CONFIG
-            .write()
-            .unwrap()
-            .0
-            .options
-            .insert("a".to_string(), "b".to_string());
+        .write()
+        .unwrap()
+        .0
+        .options
+        .insert("a".to_string(), "b".to_string());
         USER_DEFAULT_CONFIG
-            .write()
-            .unwrap()
-            .0
-            .options
-            .insert("b".to_string(), "b".to_string());
+        .write()
+        .unwrap()
+        .0
+        .options
+        .insert("b".to_string(), "b".to_string());
         OVERWRITE_DISPLAY_SETTINGS
-            .write()
-            .unwrap()
-            .insert("b".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("b".to_string(), "c".to_string());
         OVERWRITE_DISPLAY_SETTINGS
-            .write()
-            .unwrap()
-            .insert("d".to_string(), "c".to_string());
+        .write()
+        .unwrap()
+        .insert("d".to_string(), "c".to_string());
         assert!(UserDefaultConfig::read("a") == "b");
         assert!(UserDefaultConfig::read("c") == "a");
         assert!(UserDefaultConfig::read("b") == "c");
@@ -3148,7 +3154,7 @@ mod tests {
             cfg,
             Ok(Config {
                 salt: "123456".to_string(),
-                ..Default::default()
+               ..Default::default()
             })
         );
 
@@ -3204,7 +3210,7 @@ mod tests {
             "#;
             let mut cfg_to_compare = default_peer_config.clone();
             cfg_to_compare.custom_resolutions =
-                HashMap::from([("0".to_string(), Resolution { w: 1920, h: 1080 })]);
+            HashMap::from([("0".to_string(), Resolution { w: 1920, h: 1080 })]);
             let cfg = toml::from_str::<PeerConfig>(wrong_field_str);
             assert_eq!(cfg, Ok(cfg_to_compare), "Failed to test wrong_field_str");
         }
@@ -3223,10 +3229,10 @@ mod tests {
             assert_eq!(
                 // ignore file type information by masking with 0o777 (see https://stackoverflow.com/a/50045872)
                 fs::metadata(PeerConfig::path(&peerconfig_id))
-                    .expect("reading metadata failed")
-                    .permissions()
-                    .mode()
-                    & 0o777,
+                .expect("reading metadata failed")
+                .permissions()
+                .mode()
+                & 0o777,
                 0o600
             );
         }
